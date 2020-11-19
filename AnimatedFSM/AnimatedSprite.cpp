@@ -2,7 +2,7 @@
 
 AnimatedSprite::AnimatedSprite() : 
 	m_current_frame(0),
-	m_time(seconds(0.5f)),
+	m_time(sf::seconds(0.5f)),
 	m_loop(true),
 	m_play_count(0),
 	m_max_plays(0),
@@ -35,12 +35,12 @@ const sf::Time& AnimatedSprite::getTime() {
 	return m_time;
 }
 
-void AnimatedSprite::setTime(Time t)
+void AnimatedSprite::setTime(sf::Time t)
 {
 	this->m_time = t;
 }
 
-const vector<IntRect>& AnimatedSprite::getFrames() {
+const vector<sf::IntRect>& AnimatedSprite::getFrames() {
 	return m_frames;
 }
 
@@ -53,11 +53,11 @@ void AnimatedSprite::clearFrames() {
 	}
 }
 
-const IntRect& AnimatedSprite::getFrame(int n) {
+const sf::IntRect& AnimatedSprite::getFrame(int n) {
 	return m_frames[n];
 }
 
-void AnimatedSprite::addFrame(const IntRect& frame) {
+void AnimatedSprite::addFrame(const sf::IntRect& frame) {
 	m_frames.push_back(frame);
 }
 

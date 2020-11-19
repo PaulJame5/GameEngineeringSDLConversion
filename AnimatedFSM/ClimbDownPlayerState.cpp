@@ -38,7 +38,7 @@ void ClimbDownPlayerState::enter(Player& player)
 	player.getAnimatedSprite().addFrame(sf::IntRect(2172, 928, 282, 464));
 	player.getAnimatedSprite().addFrame(sf::IntRect(1608, 1392, 282, 464));
 
-	player.getAnimatedSprite().setTime(seconds(0.05f));
+	player.getAnimatedSprite().setTime(sf::seconds(0.05f));
 
 }
 void ClimbDownPlayerState::exit(Player& player) 

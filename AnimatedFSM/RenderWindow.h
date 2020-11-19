@@ -12,9 +12,9 @@ class RenderWindow
 public :
 	RenderWindow(std::string windowName, unsigned int screenWidth, unsigned int screenHeight);
 	~RenderWindow();
-	void addToRenderQueue(SDL_Texture* texture);
-	void addToRenderQueue(Sprite sprite);
-	void draw();
+	void draw(SDL_Texture* texture);
+	void draw(Sprite sprite);
+	void display();
 	void clear();
 
 	SDL_Renderer* getRenderer();

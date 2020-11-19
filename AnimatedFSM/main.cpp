@@ -1,272 +1,4 @@
-//#include <Defines.h>
-//
-//#include <iostream>
-//#include <SFML/Graphics.hpp>
-//#include <Player.h>
-//#include <Events.h>
-//#include <Debug.h>
-//
-//using namespace std;
-//
-//int main()
-//{
-//	// Create the main window
-//	sf::RenderWindow window(sf::VideoMode(800, 600), "Player Finite State Machine");
-//
-//#pragma region TextureLoading
-//
-//	// Load a sprite to display
-//	sf::Texture player_texture;
-//	if (!player_texture.loadFromFile(PLAYER_SPRITES)) {
-//		DEBUG_MSG("Failed to load file");
-//		if (!player_texture.loadFromFile(ERROR_SPRITES)) {
-//			return EXIT_FAILURE;
-//		}
-//	}
-//
-//#pragma endregion
-//
-//#pragma region AnimatedSprite
-//
-//	// Setup Players Default Animated Sprite
-//	AnimatedSprite player_animated_sprite(player_texture);
-//
-//#pragma endregion
-//
-//	Player player(player_animated_sprite);
-//
-//	gpp::Events input;
-//
-//	// Start the game loop
-//	while (window.isOpen())
-//	{
-//		// Process events
-//		sf::Event event;
-//		while (window.pollEvent(event))
-//		{
-//			switch (event.type)
-//			{
-//			case sf::Event::Closed:
-//				// Close window : exit
-//				window.close();
-//				break;
-//				// Deal with KeyPressed
-//			case sf::Event::KeyPressed:
-//				// Died Event
-//				if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-//					DEBUG_MSG("gpp::Events::Event::DIED_EVENT");
-//					input.setCurrent(gpp::Events::Event::DIED_EVENT);
-//				}
-//				// Revieved Event
-//				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
-//					DEBUG_MSG("gpp::Events::Event::REVIVED_EVENT");
-//					input.setCurrent(gpp::Events::Event::REVIVED_EVENT);
-//				}
-//				// Running attack
-//				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) 
-//					&& 
-//					sf::Keyboard::isKeyPressed(sf::Keyboard::Right) 
-//					||
-//					sf::Keyboard::isKeyPressed(sf::Keyboard::Right) 
-//					&& 
-//					sf::Keyboard::isKeyPressed(sf::Keyboard::Z)
-//					)
-//				{
-//					DEBUG_MSG("gpp::Events::Event::ATTACK_START");
-//					input.setCurrent(gpp::Events::Event::ATTACK_START_EVENT);
-//				}
-//				// Attack
-//				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-//				{
-//					DEBUG_MSG("gpp::Events::Event::ATTACK_START_EVENT");
-//					input.setCurrent(gpp::Events::Event::ATTACK_START_EVENT);
-//				}
-//				// Throw attack
-//				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) 
-//					&& 
-//					sf::Keyboard::isKeyPressed(sf::Keyboard::Right)
-//					||
-//					sf::Keyboard::isKeyPressed(sf::Keyboard::Right) 
-//					&& 
-//					sf::Keyboard::isKeyPressed(sf::Keyboard::X)
-//					)
-//				{
-//					DEBUG_MSG("gpp::Events::Event::THROW_START_EVENT");
-//					input.setCurrent(gpp::Events::Event::THROW_START_EVENT);
-//				}
-//				// Throw Attack
-//				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
-//				{
-//					DEBUG_MSG("gpp::Events::Event::THROW_START_EVENT");
-//					input.setCurrent(gpp::Events::Event::THROW_START_EVENT);
-//				}
-//				// Run Right
-//				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-//				{
-//					DEBUG_MSG("gpp::Events::Event::RUN_RIGHT_START_EVENT");
-//					input.setCurrent(gpp::Events::Event::RUN_RIGHT_START_EVENT);
-//				}
-//				// Climb Up
-//				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-//				{
-//					DEBUG_MSG("gpp::Events::Event::MOVE_UP_START_EVENT");
-//					input.setCurrent(gpp::Events::Event::MOVE_UP_START_EVENT);
-//				}
-//				// Climb Down
-//				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-//				{
-//					DEBUG_MSG("gpp::Events::Event::MOVE_DOWN_START_EVENT");
-//					input.setCurrent(gpp::Events::Event::MOVE_DOWN_START_EVENT);
-//				}
-//				// Hit Bottom of Ladder Event
-//				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::C))
-//				{
-//					DEBUG_MSG("gpp::Events::Event::HIT_LADDER_BOTTOM_EVENT");
-//					input.setCurrent(gpp::Events::Event::HIT_LADDER_BOTTOM_EVENT);
-//				}
-//				// Hit Top of Ladder Event
-//				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
-//				{
-//					DEBUG_MSG("gpp::Events::Event::HIT_LADDER_TOP_EVENT");
-//					input.setCurrent(gpp::Events::Event::HIT_LADDER_TOP_EVENT);
-//				}
-//				// Jump Run
-//				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) 
-//					&& 
-//					sf::Keyboard::isKeyPressed(sf::Keyboard::Right)
-//					||
-//					sf::Keyboard::isKeyPressed(sf::Keyboard::Right) 
-//					&& 
-//					sf::Keyboard::isKeyPressed(sf::Keyboard::Space)
-//					)
-//				{
-//					DEBUG_MSG("gpp::Events::Event::JUMP_UP_EVENT");
-//					input.setCurrent(gpp::Events::Event::JUMP_UP_EVENT);
-//				}
-//				// Jump Event
-//				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-//				{
-//					DEBUG_MSG("gpp::Events::Event::JUMP_UP_EVENT");
-//					input.setCurrent(gpp::Events::Event::JUMP_UP_EVENT);
-//				}
-//				// Running Slide
-//				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) 
-//					&& 
-//					sf::Keyboard::isKeyPressed(sf::Keyboard::Right)
-//					||
-//					sf::Keyboard::isKeyPressed(sf::Keyboard::Right) 
-//					&& 
-//					sf::Keyboard::isKeyPressed(sf::Keyboard::Down)
-//					)
-//				{
-//					DEBUG_MSG("gpp::Events::Event::SLIDE_EVENT");
-//					input.setCurrent(gpp::Events::Event::SLIDE_EVENT);
-//				}
-//				// Hit Ground Event
-//				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::H))
-//				{
-//					DEBUG_MSG("gpp::Events::Event::HIT_GROUND_EVENT");
-//					input.setCurrent(gpp::Events::Event::HIT_GROUND_EVENT);
-//				}
-//
-//				// Jump Attack Event
-//				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::H))
-//				{
-//					DEBUG_MSG("gpp::Events::Event::HIT_GROUND_EVENT");
-//					input.setCurrent(gpp::Events::Event::HIT_GROUND_EVENT);
-//				}
-//
-//				// Jump Throw Attack Event
-//				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::H))
-//				{
-//					DEBUG_MSG("gpp::Events::Event::HIT_GROUND_EVENT");
-//					input.setCurrent(gpp::Events::Event::HIT_GROUND_EVENT);
-//				}
-//				break;
-//
-//				// Deal with KeyReleased
-//			case sf::Event::KeyReleased:
-//				// Run and Stop Attack
-//				if (event.key.code == sf::Keyboard::Z 
-//					&& 
-//					sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-//				{
-//					DEBUG_MSG("gpp::Events::Event::RUN_RIGHT_START_EVENT");
-//					input.setCurrent(gpp::Events::Event::RUN_RIGHT_START_EVENT);
-//				}
-//				// Stop Attack
-//				else if(event.key.code == sf::Keyboard::Z)
-//				{
-//					DEBUG_MSG("gpp::Events::Event::ATTACK_STOP_EVENT");
-//					input.setCurrent(gpp::Events::Event::ATTACK_STOP_EVENT);
-//				}
-//				// Run and Stop Throw Attack
-//				else if (event.key.code == sf::Keyboard::X
-//					&&
-//					sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-//				{
-//					DEBUG_MSG("gpp::Events::Event::RUN_RIGHT_START_EVENT");
-//					input.setCurrent(gpp::Events::Event::RUN_RIGHT_START_EVENT);
-//				}
-//				// Stop Throw Attack
-//				else if (event.key.code == sf::Keyboard::X)
-//				{
-//					DEBUG_MSG("gpp::Events::Event::THROW_STOP_EVENT");
-//					input.setCurrent(gpp::Events::Event::THROW_STOP_EVENT);
-//				}
-//				// Stop Running Right
-//				else if (event.key.code == sf::Keyboard::Right)
-//				{
-//					DEBUG_MSG("gpp::Events::Event::RUN_RIGHT_STOP_EVENT");
-//					input.setCurrent(gpp::Events::Event::RUN_RIGHT_STOP_EVENT);
-//				}
-//				// Stop Slide
-//				else if (event.key.code == sf::Keyboard::Down 
-//					&&
-//					sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-//				{
-//					DEBUG_MSG("gpp::Events::Event::RUN_RIGHT_START_EVENT");
-//					input.setCurrent(gpp::Events::Event::RUN_RIGHT_START_EVENT);
-//				}
-//				// Stop Moving Up
-//				else if (event.key.code == sf::Keyboard::Up)
-//				{
-//					DEBUG_MSG("gpp::Events::Event::MOVE_UP_STOP_EVENT");
-//					input.setCurrent(gpp::Events::Event::MOVE_UP_STOP_EVENT);
-//				}
-//				// Stop Moving Down
-//				else if (event.key.code == sf::Keyboard::Down)
-//				{
-//					DEBUG_MSG("gpp::Events::Event::MOVE_DOWN_STOP_EVENT");
-//					input.setCurrent(gpp::Events::Event::MOVE_DOWN_STOP_EVENT);
-//				}
-//				break;
-//
-//			default:
-//				DEBUG_MSG("gpp::Events::Event::NONE");
-//				input.setCurrent(gpp::Events::Event::NONE);
-//				break;
-//			}
-//			// Handle input to Player
-//			player.handleInput(input);
-//		}
-//
-//		// Update the Player
-//		player.update();
-//
-//		// Clear screen
-//		window.clear();
-//
-//		// Draw the Players Current Animated Sprite
-//		window.draw(player.getAnimatedSpriteFrame());
-//
-//		// Update the window
-//		window.display();
-//	}
-//
-//	return EXIT_SUCCESS;
-//};
-
+#include <Defines.h>
 
 #include <SDL_main.h>
 #include <SDL.h>
@@ -274,52 +6,314 @@
 #include <iostream>
 #include "Sprite.h"
 #include "Texture.h"
+#include <Player.h>
+#include <Events.h>
+#include <Debug.h>
+#include "InputKeyboard.h"
 
-const int SCREEN_WIDTH = 800;
-const int SCREEN_HEIGHT = 600;
-
-//The image we will load and show on the screen
-SDL_Surface* gHelloWorld = NULL;
-
-void close();
 
 int main(int argc, char* args[])
 {
-	RenderWindow* window = new RenderWindow("sdl Test", SCREEN_WIDTH, SCREEN_HEIGHT);
+	// Create the main window
+	RenderWindow* window = new RenderWindow("SDL Conversion", 800, 600);
 
-	//Sprite spriteObject = Sprite("img.png",  window);
-	//Sprite spriteObject = Sprite("assets/Kunai.png", window);
-	Texture* texture = new Texture();// = new Texture("assets/Kunai.png", window);
-	Sprite spriteObject;
-	if (!texture->loadTextureFromFile("assets/Kunai.png", window))
+#pragma region TextureLoading
+
+	// Load a sprite to display
+	Texture* player_texture;
+	if (!player_texture->loadTextureFromFile(PLAYER_SPRITES, window))
 	{
-		printf("notloaded");
+		DEBUG_MSG("Failed to load file");
+		if (!player_texture->loadTextureFromFile(ERROR_SPRITES, window))
+		{
+			return EXIT_FAILURE;
+		}
 	}
-	spriteObject.setTexture(texture);
+
+#pragma endregion
+
+#pragma region AnimatedSprite
+
+	// Setup Players Default Animated Sprite
+	AnimatedSprite player_animated_sprite(player_texture);
+	InputKeyboard inputKeyboard;
+#pragma endregion
+
+	Player player(player_animated_sprite);
+
+	gpp::Events input;
 
 	bool exit = false;
-
+	// Start the game loop
 	while (!exit)
 	{
+		inputKeyboard.Update();
+
+		// Died Event
+		if (inputKeyboard.IsKeyPressed(SDL_SCANCODE_D))
+		{
+			DEBUG_MSG("gpp::Events::Event::DIED_EVENT");
+			input.setCurrent(gpp::Events::Event::DIED_EVENT);
+		}
+
+		// Revieved Event
+		if (inputKeyboard.IsKeyPressed(SDL_SCANCODE_R)) {
+			DEBUG_MSG("gpp::Events::Event::REVIVED_EVENT");
+			input.setCurrent(gpp::Events::Event::REVIVED_EVENT);
+		}
+		// Running attack
+		if (inputKeyboard.IsKeyPressed(SDL_SCANCODE_Z)
+			&&
+			inputKeyboard.IsKeyPressed(SDL_SCANCODE_RIGHT)
+			||
+			inputKeyboard.IsKeyPressed(SDL_SCANCODE_RIGHT)
+			&&
+			inputKeyboard.IsKeyPressed(SDL_SCANCODE_Z))
+		{
+			DEBUG_MSG("gpp::Events::Event::ATTACK_START");
+			input.setCurrent(gpp::Events::Event::ATTACK_START_EVENT);
+		}
+		// Attack
+		if (inputKeyboard.IsKeyPressed(SDL_SCANCODE_Z))
+		{
+			DEBUG_MSG("gpp::Events::Event::ATTACK_START_EVENT");
+			input.setCurrent(gpp::Events::Event::ATTACK_START_EVENT);
+		}
+		// Throw attack
+		if (inputKeyboard.IsKeyPressed(SDL_SCANCODE_X)
+			&&
+			inputKeyboard.IsKeyPressed(SDL_SCANCODE_RIGHT)
+			||
+			inputKeyboard.IsKeyPressed(SDL_SCANCODE_RIGHT)
+			&&
+			inputKeyboard.IsKeyPressed(SDL_SCANCODE_X)
+			)
+		{
+			DEBUG_MSG("gpp::Events::Event::THROW_START_EVENT");
+			input.setCurrent(gpp::Events::Event::THROW_START_EVENT);
+		}
+		// Throw Attack
+		if (inputKeyboard.IsKeyPressed(SDL_SCANCODE_X))
+		{
+			DEBUG_MSG("gpp::Events::Event::THROW_START_EVENT");
+			input.setCurrent(gpp::Events::Event::THROW_START_EVENT);
+		}
+		// Run Right
+		if (inputKeyboard.IsKeyPressed(SDL_SCANCODE_RIGHT))
+		{
+			DEBUG_MSG("gpp::Events::Event::RUN_RIGHT_START_EVENT");
+			input.setCurrent(gpp::Events::Event::RUN_RIGHT_START_EVENT);
+		}
+		// Climb Up
+		if (inputKeyboard.IsKeyPressed(SDL_SCANCODE_UP))
+		{
+			DEBUG_MSG("gpp::Events::Event::MOVE_UP_START_EVENT");
+			input.setCurrent(gpp::Events::Event::MOVE_UP_START_EVENT);
+		}
+		// Climb Down
+		if (inputKeyboard.IsKeyPressed(SDL_SCANCODE_DOWN))
+		{
+			DEBUG_MSG("gpp::Events::Event::MOVE_DOWN_START_EVENT");
+			input.setCurrent(gpp::Events::Event::MOVE_DOWN_START_EVENT);
+		}
+		// Hit Bottom of Ladder Event
+		if (inputKeyboard.IsKeyPressed(SDL_SCANCODE_C))
+		{
+			DEBUG_MSG("gpp::Events::Event::HIT_LADDER_BOTTOM_EVENT");
+			input.setCurrent(gpp::Events::Event::HIT_LADDER_BOTTOM_EVENT);
+		}
+		// Hit Top of Ladder Event
+		if (inputKeyboard.IsKeyPressed(SDL_SCANCODE_T))
+		{
+			DEBUG_MSG("gpp::Events::Event::HIT_LADDER_TOP_EVENT");
+			input.setCurrent(gpp::Events::Event::HIT_LADDER_TOP_EVENT);
+		}
+		// Jump Run
+		if (inputKeyboard.IsKeyPressed(SDL_SCANCODE_SPACE)
+			&&
+			inputKeyboard.IsKeyPressed(SDL_SCANCODE_RIGHT)
+			||
+			inputKeyboard.IsKeyPressed(SDL_SCANCODE_RIGHT)
+			&&
+			inputKeyboard.IsKeyPressed(SDL_SCANCODE_SPACE)
+			)
+		{
+			DEBUG_MSG("gpp::Events::Event::JUMP_UP_EVENT");
+			input.setCurrent(gpp::Events::Event::JUMP_UP_EVENT);
+		}
+		// Jump Event
+		if (inputKeyboard.IsKeyPressed(SDL_SCANCODE_SPACE))
+		{
+			DEBUG_MSG("gpp::Events::Event::JUMP_UP_EVENT");
+			input.setCurrent(gpp::Events::Event::JUMP_UP_EVENT);
+		}
+		// Running Slide
+		if (inputKeyboard.IsKeyPressed(SDL_SCANCODE_DOWN)
+			&&
+			inputKeyboard.IsKeyPressed(SDL_SCANCODE_RIGHT)
+			||
+			inputKeyboard.IsKeyPressed(SDL_SCANCODE_RIGHT)
+			&&
+			inputKeyboard.IsKeyPressed(SDL_SCANCODE_DOWN)
+			)
+		{
+			DEBUG_MSG("gpp::Events::Event::SLIDE_EVENT");
+			input.setCurrent(gpp::Events::Event::SLIDE_EVENT);
+		}
+		// Hit Ground Event
+		else if (inputKeyboard.IsKeyPressed(SDL_SCANCODE_H))
+		{
+			DEBUG_MSG("gpp::Events::Event::HIT_GROUND_EVENT");
+			input.setCurrent(gpp::Events::Event::HIT_GROUND_EVENT);
+		}
+
+		// Jump Attack Event
+		else if (inputKeyboard.IsKeyPressed(SDL_SCANCODE_H))
+		{
+			DEBUG_MSG("gpp::Events::Event::HIT_GROUND_EVENT");
+			input.setCurrent(gpp::Events::Event::HIT_GROUND_EVENT);
+		}
+
+		// Jump Throw Attack Event
+		else if (inputKeyboard.IsKeyPressed(SDL_SCANCODE_H))
+		{
+			DEBUG_MSG("gpp::Events::Event::HIT_GROUND_EVENT");
+			input.setCurrent(gpp::Events::Event::HIT_GROUND_EVENT);
+		}
+
+		// Deal with KeyReleased
+		// Run and Stop Attack
+
+		if (inputKeyboard.IsKeyReleased(SDL_SCANCODE_Z)
+			&&
+			inputKeyboard.IsKeyReleased(SDL_SCANCODE_RIGHT))
+		{
+			DEBUG_MSG("gpp::Events::Event::RUN_RIGHT_START_EVENT");
+			input.setCurrent(gpp::Events::Event::RUN_RIGHT_START_EVENT);
+		}
+		// Stop Attack
+		else if (inputKeyboard.IsKeyReleased(SDL_SCANCODE_Z))
+		{
+			DEBUG_MSG("gpp::Events::Event::ATTACK_STOP_EVENT");
+			input.setCurrent(gpp::Events::Event::ATTACK_STOP_EVENT);
+		}
+		// Run and Stop Throw Attack
+		else if (inputKeyboard.IsKeyReleased(SDL_SCANCODE_X)
+			&&
+			inputKeyboard.IsKeyReleased(SDL_SCANCODE_RIGHT))
+		{
+			DEBUG_MSG("gpp::Events::Event::RUN_RIGHT_START_EVENT");
+			input.setCurrent(gpp::Events::Event::RUN_RIGHT_START_EVENT);
+		}
+		// Stop Throw Attack
+		else if (inputKeyboard.IsKeyReleased(SDL_SCANCODE_X))
+		{
+			DEBUG_MSG("gpp::Events::Event::THROW_STOP_EVENT");
+			input.setCurrent(gpp::Events::Event::THROW_STOP_EVENT);
+		}
+		// Stop Running Right
+		else if (inputKeyboard.IsKeyReleased(SDL_SCANCODE_RIGHT))
+		{
+			DEBUG_MSG("gpp::Events::Event::RUN_RIGHT_STOP_EVENT");
+			input.setCurrent(gpp::Events::Event::RUN_RIGHT_STOP_EVENT);
+		}
+		// Stop Slide
+		else if (inputKeyboard.IsKeyReleased(SDL_SCANCODE_DOWN)
+			&&
+			inputKeyboard.IsKeyReleased(SDL_SCANCODE_RIGHT))
+		{
+			DEBUG_MSG("gpp::Events::Event::RUN_RIGHT_START_EVENT");
+			input.setCurrent(gpp::Events::Event::RUN_RIGHT_START_EVENT);
+		}
+		// Stop Moving Up
+		else if (inputKeyboard.IsKeyReleased(SDL_SCANCODE_UP))
+		{
+			DEBUG_MSG("gpp::Events::Event::MOVE_UP_STOP_EVENT");
+			input.setCurrent(gpp::Events::Event::MOVE_UP_STOP_EVENT);
+		}
+		// Stop Moving Down
+		else if (inputKeyboard.IsKeyReleased(SDL_SCANCODE_DOWN))
+		{
+			DEBUG_MSG("gpp::Events::Event::MOVE_DOWN_STOP_EVENT");
+			input.setCurrent(gpp::Events::Event::MOVE_DOWN_STOP_EVENT);
+		}
+
+		DEBUG_MSG("gpp::Events::Event::NONE");
+		input.setCurrent(gpp::Events::Event::NONE);
+
+		// Handle input to Player
+		player.handleInput(input);
+
+
+		// Update the Player
+		player.update();
+
+		// Clear screen
 		window->clear();
-		window->addToRenderQueue(spriteObject);
-		window->draw();
-	}
 
-	//Free resources and close SDL
-	close();
+		// Draw the Players Current Animated Sprite
+		window->display(player.getAnimatedSpriteFrame());
 
-	return 0;
+		// Update the window
+		window->display();
+	} // end game loop
+
+	return EXIT_SUCCESS;
 }
 
 
-void close()
-{
-	//Deallocate surface
-	SDL_FreeSurface(gHelloWorld);
-	gHelloWorld = NULL;
-
-
-	//Quit SDL subsystems
-	SDL_Quit();
-}
+//#include <SDL_main.h>
+//#include <SDL.h>
+//#include <SDL_image.h>
+//#include <iostream>
+//#include "Sprite.h"
+//#include "Texture.h"
+//
+//const int SCREEN_WIDTH = 800;
+//const int SCREEN_HEIGHT = 600;
+//
+////The image we will load and show on the screen
+//SDL_Surface* gHelloWorld = NULL;
+//
+//void close();
+//
+//int main(int argc, char* args[])
+//{
+//	RenderWindow* window = new RenderWindow("sdl Test", SCREEN_WIDTH, SCREEN_HEIGHT);
+//
+//	//Sprite spriteObject = Sprite("img.png",  window);
+//	//Sprite spriteObject = Sprite("assets/Kunai.png", window);
+//	Texture* texture = new Texture();// = new Texture("assets/Kunai.png", window);
+//	Sprite spriteObject;
+//	if (!texture->loadTextureFromFile("assets/Kunai.png", window))
+//	{
+//		printf("notloaded");
+//	}
+//	spriteObject.setTexture(texture);
+//
+//	bool exit = false;
+//
+//	while (!exit)
+//	{
+//		window->clear();
+//		window->addToRenderQueue(spriteObject);
+//		window->draw();
+//	}
+//
+//	//Free resources and close SDL
+//	close();
+//
+//	return 0;
+//}
+//
+//
+//void close()
+//{
+//	//Deallocate surface
+//	SDL_FreeSurface(gHelloWorld);
+//	gHelloWorld = NULL;
+//
+//
+//	//Quit SDL subsystems
+//	SDL_Quit();
+//}
