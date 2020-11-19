@@ -52,10 +52,16 @@ SDL_Rect Sprite::getTextureRect()
 void Sprite::setTextureRect(int x, int y, int width, int height)
 {
 	spriteTextureBounds = { x, y, width, height };
+	// Update Billboard
+	spriteBillBoard.w = spriteTextureBounds.w * xScale;
+	spriteBillBoard.h = spriteTextureBounds.h * yScale;
 }
 void Sprite::setTextureRect(SDL_Rect spriteTextureBounds)
 {
 	this->spriteTextureBounds = spriteTextureBounds;
+	// Update Billboard
+	spriteBillBoard.w = spriteTextureBounds.w * xScale;
+	spriteBillBoard.h = spriteTextureBounds.h * yScale;
 }
 
 SDL_Rect Sprite::getSpriteBillBoard()
@@ -189,6 +195,16 @@ void Sprite::initialise(std::string imgUrl, RenderWindow* renderWindow)
 	// fit to Pixel Scale
 	spriteBillBoard.w = spriteTextureBounds.w * xScale;
 	spriteBillBoard.h = spriteTextureBounds.h * yScale;
+}
+
+void Sprite::setAsAnimationTexture()
+{
+	animationTexture = true;
+}
+
+bool Sprite::isAnimationTexture()
+{
+	return animationTexture;
 }
 
 

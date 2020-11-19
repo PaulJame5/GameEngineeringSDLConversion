@@ -7,11 +7,13 @@ AnimatedSprite::AnimatedSprite() :
 	m_max_plays(0),
 	m_played(false)
 {
+	setAsAnimationTexture();
 	DEBUG_MSG("AnimatedSprite()");
 }
 
 AnimatedSprite::AnimatedSprite(Texture* t) : AnimatedSprite(){
 	DEBUG_MSG("AnimatedSprite(const Texture&)");
+	setAsAnimationTexture();
 	setTexture(t);
 }
 
@@ -74,15 +76,19 @@ void AnimatedSprite::update() {
 	if (m_played == true && !m_loop)
 	{
 		m_current_frame = m_frames.size() - 1;
+		//setTextureRect(m_frames[m_current_frame]);
 		return;
 	}
 	if (m_frames.size() > m_current_frame + 1)
 	{
 		m_current_frame++;
+		//setTextureRect(m_frames[m_current_frame]);
+		return;
 	}
-	else {
-		m_current_frame = 0;
-		m_played = true;
-	}
+	m_current_frame = 0;
+	m_played = true;
+
+	//setTextureRect(m_frames[m_current_frame]);
+	//setScale(.2, .2);
 }
 

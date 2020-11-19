@@ -40,6 +40,8 @@ public:
 	void setTexture(Texture* texture);
 
 	void initialise(std::string imgUrl, RenderWindow* window);
+	void setAsAnimationTexture();
+	bool isAnimationTexture();
 private:
 
 	SDL_Rect spriteTextureBounds = { 0, 0 , 0 , 0 };
@@ -52,6 +54,7 @@ private:
 	float yScale = 1;
 
 	float angleDegrees = 0;
+	bool animationTexture = false;
 
 	//SDL_Surface* loadSurface(std::string path, RenderWindow window);
 };
