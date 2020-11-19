@@ -20,7 +20,7 @@ int main(int argc, char* args[])
 #pragma region TextureLoading
 
 	// Load a sprite to display
-	Texture* player_texture;
+	Texture* player_texture = new Texture();
 	if (!player_texture->loadTextureFromFile(PLAYER_SPRITES, window))
 	{
 		DEBUG_MSG("Failed to load file");
@@ -252,7 +252,7 @@ int main(int argc, char* args[])
 		window->clear();
 
 		// Draw the Players Current Animated Sprite
-		window->display(player.getAnimatedSpriteFrame());
+		window->draw(player.getAnimatedSpriteFrame());
 
 		// Update the window
 		window->display();

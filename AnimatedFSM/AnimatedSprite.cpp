@@ -2,7 +2,6 @@
 
 AnimatedSprite::AnimatedSprite() : 
 	m_current_frame(0),
-	m_time(sf::seconds(0.5f)),
 	m_loop(true),
 	m_play_count(0),
 	m_max_plays(0),
@@ -11,12 +10,12 @@ AnimatedSprite::AnimatedSprite() :
 	DEBUG_MSG("AnimatedSprite()");
 }
 
-AnimatedSprite::AnimatedSprite(const sf::Texture& t) : AnimatedSprite(){
+AnimatedSprite::AnimatedSprite(Texture* t) : AnimatedSprite(){
 	DEBUG_MSG("AnimatedSprite(const Texture&)");
-	this->setTexture(t);
+	setTexture(t);
 }
 
-AnimatedSprite::AnimatedSprite(const sf::Texture& t, const sf::IntRect& rect) : 
+AnimatedSprite::AnimatedSprite(Texture* t, const SDL_Rect& rect) : 
 	AnimatedSprite(t)
 {
 	DEBUG_MSG("AnimatedSprite(const Texture&, const IntRect&)");
@@ -27,20 +26,8 @@ AnimatedSprite::~AnimatedSprite() {
 	DEBUG_MSG("~AnimatedSprite()");
 }
 
-const sf::Clock& AnimatedSprite::getClock() {
-	return m_clock;
-}
 
-const sf::Time& AnimatedSprite::getTime() {
-	return m_time;
-}
-
-void AnimatedSprite::setTime(sf::Time t)
-{
-	this->m_time = t;
-}
-
-const vector<sf::IntRect>& AnimatedSprite::getFrames() {
+const vector<SDL_Rect>& AnimatedSprite::getFrames() {
 	return m_frames;
 }
 
@@ -53,11 +40,11 @@ void AnimatedSprite::clearFrames() {
 	}
 }
 
-const sf::IntRect& AnimatedSprite::getFrame(int n) {
+const SDL_Rect& AnimatedSprite::getFrame(int n) {
 	return m_frames[n];
 }
 
-void AnimatedSprite::addFrame(const sf::IntRect& frame) {
+void AnimatedSprite::addFrame(const SDL_Rect& frame) {
 	m_frames.push_back(frame);
 }
 
@@ -81,25 +68,21 @@ const bool AnimatedSprite::getPlayed() {
 	return this->m_played;
 }
 
-void AnimatedSprite::update(){
+void AnimatedSprite::update() {
+
 	// If not looped only play once
 	if (m_played == true && !m_loop)
 	{
 		m_current_frame = m_frames.size() - 1;
+		return;
+	}
+	if (m_frames.size() > m_current_frame + 1)
+	{
+		m_current_frame++;
 	}
 	else {
-		if (m_clock.getElapsedTime() > m_time) {
-			if (m_frames.size() > m_current_frame + 1)
-			{
-				m_current_frame++;
-			}
-			else {
-				m_current_frame = 0;
-				m_played = true;
-			}
-			m_clock.restart();
-		}
+		m_current_frame = 0;
+		m_played = true;
 	}
-	
 }
 

@@ -47,19 +47,19 @@ RenderWindow::~RenderWindow()
 	window = NULL;
 }
 
-void RenderWindow::addToRenderQueue(SDL_Texture* texture)
+void RenderWindow::draw(SDL_Texture* texture)
 {
 	SDL_RenderCopy(renderer, texture, NULL, NULL);
 
 	SDL_RenderPresent(renderer);
 }
 //
-void RenderWindow::addToRenderQueue(Sprite sprite)
+void RenderWindow::draw(Sprite sprite)
 {
 	SDL_RenderCopyEx(renderer, sprite.getTexture()->get(), &sprite.getTextureRect(), &sprite.getSpriteBillBoard(), .0f, &sprite.getRotationOrigin(), SDL_RendererFlip::SDL_FLIP_NONE);
 }
 
-void RenderWindow::draw()
+void RenderWindow::display()
 {
 	SDL_RenderPresent(renderer);
 }

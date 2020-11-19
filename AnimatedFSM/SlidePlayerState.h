@@ -11,7 +11,6 @@ public:
 	virtual void enter(Player&);
 	virtual void exit(Player&);
 private:
-	sf::Clock m_clock;
 };
 
 #endif

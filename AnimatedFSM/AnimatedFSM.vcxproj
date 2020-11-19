@@ -155,6 +155,7 @@
     <ClInclude Include="GlidePlayerState.h" />
     <ClInclude Include="IdlePlayerState.h" />
     <ClInclude Include="Events.h" />
+    <ClInclude Include="InputKeyboard.h" />
     <ClInclude Include="JumpAttackPlayerState.h" />
     <ClInclude Include="JumpPlayerState.h" />
     <ClInclude Include="JumpThrowAttackPlayerState.h" />
@@ -179,6 +180,7 @@
     <ClCompile Include="DiedPlayerState.cpp" />
     <ClCompile Include="Events.cpp" />
     <ClCompile Include="GlidePlayerState.cpp" />
+    <ClCompile Include="InputKeyboard.cpp" />
     <ClCompile Include="JumpAttackPlayerState.cpp" />
     <ClCompile Include="JumpPlayerState.cpp" />
     <ClCompile Include="JumpThrowAttackPlayerState.cpp" />
